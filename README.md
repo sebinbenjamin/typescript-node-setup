@@ -1,6 +1,12 @@
-## Step 1
+### Pre-requisite
+ - Install typescript 
+    ```npm install -g typescript```
+ - Install nodemon (optional) 
+    ```npm install -g nodemon``` 
+
+## Step 1 - Initialize tsconfig.
 Typescript Config - tsconfig.json
-Used command tsc --init  to create tsconfig file.
+Used command `tsc --init`  to create tsconfig file.
 Uncomment `sourceMap: true` and other necessary options.
 ```
 {
@@ -13,14 +19,7 @@ Uncomment `sourceMap: true` and other necessary options.
 }
 ```
 
-## Step 2
-- Start Task `tsc:watch` to automatically transpile typescript file.
-
-- Run `nodemon` on the output js file.
-
-### For debugging code
-
- - Stop `tsc:watch` task and `nodemon` if run previously. 
+## Step 2 - Add Debug tasks
  - Add VS Code debugger config, which runs tsc before starting the debugger. 
 
 ```
@@ -28,8 +27,8 @@ Uncomment `sourceMap: true` and other necessary options.
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${file}",
+      "name": "Debug after transpiling TS",
+      "program": "${workspaceFolder}/out/index.ts",
       "preLaunchTask": "tsc: build - tsconfig.json",      // skip in watch mode
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
@@ -38,3 +37,8 @@ Uncomment `sourceMap: true` and other necessary options.
   ]
 ```
  - Use the VS Code inbuilt debugger.
+
+### For normal compilation, without debugging 
+- Start Task `tsc:watch` to automatically transpile typescript file.
+- Run `nodemon` on the output js file.
+
